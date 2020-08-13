@@ -1,5 +1,6 @@
 package Library.view;
 
+import Library.model.Book;
 import Library.model.CD;
 import Library.model.Item;
 import Library.model.ILibraryItem;
@@ -17,8 +18,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Region;
 
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class MainCDViewController implements Initializable
@@ -55,6 +60,14 @@ public class MainCDViewController implements Initializable
   }
 
   public void reset() {
+    dataList.clear();
+    try {
+      dataList.addAll(refreshData());
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    itemTable.setItems(dataList);
+    applySearching();
   }
 
   public Region getRoot() {
@@ -110,10 +123,37 @@ public class MainCDViewController implements Initializable
     IDColumn.setCellValueFactory (new PropertyValueFactory<Item,Integer> ("ID"));
     borrowedColumn.setCellValueFactory (new PropertyValueFactory<Item,Boolean> ("Borrowed"));
     loadList ();
-    Item item1 = new CD ("CD","Titanic",20);
-    Item item2 = new CD ("CD","Backyardigans",21);
-    Item item3 = new CD ("CD","Pulp Fiction",22);
-    dataList.addAll(item1,item2, item3);
+    try {
+      dataList.addAll(refreshData());
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    finally {
+      applySearching();
+    }
+  }
+
+  public ArrayList<CD> refreshData() throws IOException {
+    String [] data = new String[5];
+    ArrayList<CD> cds = new ArrayList<>();
+    String row = "";
+    BufferedReader cdReader = new BufferedReader(new FileReader("cds.csv"));
+    int i = 0;
+    while ((row = cdReader.readLine()) != null)
+    {
+      data = row.split(",");
+      if(i == 0){
+        i++;
+        continue;
+      }
+      CD cd = new CD("cd",data[0],Integer.parseInt(data[1]));
+      cd.setBorrowed(Boolean.parseBoolean(data[2]));
+      cds.add(cd);
+    }
+    return cds;
+  }
+
+  public void applySearching(){
     //Wrap the Observable List in a filtered list(initially display all data)
     FilteredList<Item> filteredList = new FilteredList<> (dataList, b -> true);
     //Set the filter predicate whenever the filter changes

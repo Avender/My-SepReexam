@@ -17,10 +17,11 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class MainViewController implements Initializable {
+public class MainViewController implements Initializable
+{
   @FXML private Button booksButton;
   @FXML private Button articlesButton;
   @FXML private Button CDButton;
@@ -46,15 +47,21 @@ public class MainViewController implements Initializable {
   public MainViewController() {
   }
 
-  public void init(ViewHandler viewHandler, ILibraryItem model, Region root) {
+  public void init(ViewHandler viewHandler, ILibraryItem model, Region root) throws IOException {
     this.viewHandler = viewHandler;
     this.mainModel = model;
     this.root = root;
-   // dataList.clear();
-
   }
 
   public void reset() {
+    dataList.clear();
+    try {
+      dataList.addAll(refreshData());
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    itemTable.setItems(dataList);
+    applySearching();
   }
 
   public Region getRoot() {
@@ -112,52 +119,65 @@ public class MainViewController implements Initializable {
     ISBNColumn.setCellValueFactory (new PropertyValueFactory<Book, String> ("ISBN"));
     borrowedColumn.setCellValueFactory (new PropertyValueFactory<Item,Boolean> ("Borrowed"));
     loadList ();
-    String [] data = new String[5];
     try {
-      String row = "";
-      BufferedReader booksReader = new BufferedReader(new FileReader("books.csv"));
-      int i = 0;
-      while ((row = booksReader.readLine()) != null)
-      {
-          data = row.split(",");
-          if(i == 0){
-            i++;
-            continue;
-          }
-          Book book = new Book("book",data[0],Integer.parseInt(data[1]),data[2],data[3]);
-          book.setBorrowed(Boolean.parseBoolean(data[4]));
-          dataList.add(book);
-
+         dataList.addAll(refreshData());
       }
-    } catch (IOException ignored) {
+     catch (IOException ignored) {
     } finally {
-      //Wrap the Observable List in a filtered list(initially display all data)
-      FilteredList<Item> filteredList = new FilteredList<> (dataList, b -> true);
-      //Set the filter predicate whenever the filter changes
-      searchField.textProperty ().addListener ((observable, oldValue, newValue) -> {
-        filteredList.setPredicate (item -> {
-          //if filter text is empty, display all items
-          if (newValue == null || newValue.isEmpty ()) {
-            return true;
-          }
-          String loweCaseFilter = newValue.toLowerCase ();
-          if (item.getTitle ().toLowerCase ().indexOf (loweCaseFilter) != -1) {
-            return true; //Filter matches the title
-          } else if (item.getType ().toLowerCase ().indexOf (loweCaseFilter) != -1) {
-            return true;//Filter matches the ID
-          } else if (String.valueOf (item.getID ()).indexOf (loweCaseFilter) != -1)
-            return true;
-          else
-            return false;//Does not match
-        });
-      });
-      //Wrap the FilteredList in a sortedList
-      SortedList<Item> sortedList = new SortedList<> (filteredList);
-      //Bind the sortedlist comparator to the tableview comparator
-      sortedList.comparatorProperty ().bind (itemTable.comparatorProperty ());
-      //Add sorted data to the table
-      itemTable.setItems (sortedList);
+        applySearching();
     }
 
+  }
+
+
+
+
+public ArrayList<Book> refreshData() throws IOException {
+        String [] data = new String[5];
+        ArrayList<Book> books = new ArrayList<>();
+        String row = "";
+        BufferedReader booksReader = new BufferedReader(new FileReader("books.csv"));
+        int i = 0;
+        while ((row = booksReader.readLine()) != null)
+        {
+        data = row.split(",");
+        if(i == 0){
+        i++;
+        continue;
+        }
+        Book book = new Book("book",data[0],Integer.parseInt(data[1]),data[2],data[3]);
+        book.setBorrowed(Boolean.parseBoolean(data[4]));
+        books.add(book);
+        }
+        return books;
+  }
+
+  public void applySearching()
+  {
+    FilteredList<Item> filteredList = new FilteredList<> (dataList, b -> true);
+    //Set the filter predicate whenever the filter changes
+    searchField.textProperty ().addListener ((observable, oldValue, newValue) -> {
+      filteredList.setPredicate (item -> {
+        //if filter text is empty, display all items
+        if (newValue == null || newValue.isEmpty ()) {
+          return true;
+        }
+        String loweCaseFilter = newValue.toLowerCase ();
+        if (item.getTitle ().toLowerCase ().indexOf (loweCaseFilter) != -1) {
+          return true; //Filter matches the title
+        } else if (item.getType ().toLowerCase ().indexOf (loweCaseFilter) != -1) {
+          return true;//Filter matches the ID
+        } else if (String.valueOf (item.getID ()).indexOf (loweCaseFilter) != -1)
+          return true;
+        else
+          return false;//Does not match
+      });
+    });
+    //Wrap the FilteredList in a sortedList
+    SortedList<Item> sortedList = new SortedList<> (filteredList);
+    //Bind the sortedlist comparator to the tableview comparator
+    sortedList.comparatorProperty ().bind (itemTable.comparatorProperty ());
+    //Add sorted data to the table
+    itemTable.setItems (sortedList);
   }
 }
