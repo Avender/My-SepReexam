@@ -17,6 +17,8 @@ public class LibraryItemsManager implements ILibraryItem {
             csvWriterBooks.append("ISBN");
             csvWriterBooks.append(",");
             csvWriterBooks.append("Author");
+            csvWriterBooks.append(",");
+            csvWriterBooks.append("Is borrowed?");
             csvWriterBooks.append("\n");
         }
         csvWriterArticles = new FileWriter("articles.csv", true);
@@ -29,6 +31,8 @@ public class LibraryItemsManager implements ILibraryItem {
             csvWriterArticles.append("Magazine");
             csvWriterArticles.append(",");
             csvWriterArticles.append("Author");
+            csvWriterArticles.append(",");
+            csvWriterArticles.append("Is borrowed?");
             csvWriterArticles.append("\n");
         }
         csvWriterCd = new FileWriter("cds.csv", true);
@@ -37,6 +41,8 @@ public class LibraryItemsManager implements ILibraryItem {
             csvWriterCd.append("Title");
             csvWriterCd.append(",");
             csvWriterCd.append("ID");
+            csvWriterCd.append(",");
+            csvWriterCd.append("Is borrowed?");
             csvWriterCd.append("\n");
         }
     }
@@ -45,7 +51,7 @@ public class LibraryItemsManager implements ILibraryItem {
     public void addItem(Item item) throws IOException {
         if(item instanceof Book) {
             Book book = (Book)item;
-            ArrayList<String> bookFields = new ArrayList<String>(Arrays.asList(book.getTitle(), String.valueOf(book.getID()), book.getISBN(), book.getAuthor()));
+            ArrayList<String> bookFields = new ArrayList<String>(Arrays.asList(book.getTitle(), String.valueOf(book.getID()), book.getISBN(), book.getAuthor(), String.valueOf(book.isBorrowed())));
             csvWriterBooks.append(String.join(",", bookFields));
             csvWriterBooks.append("\n");
             csvWriterBooks.flush();
@@ -53,7 +59,7 @@ public class LibraryItemsManager implements ILibraryItem {
         else if (item instanceof Article)
         {
             Article article = (Article) item;
-            ArrayList<String> articleFields = new ArrayList<String>(Arrays.asList(article.getTitle(), String.valueOf(article.getID()), article.getMagazine(), article.getAuthor()));
+            ArrayList<String> articleFields = new ArrayList<String>(Arrays.asList(article.getTitle(), String.valueOf(article.getID()), article.getMagazine(), article.getAuthor(), String.valueOf(article.isBorrowed())));
             csvWriterArticles.append(String.join(",", articleFields));
             csvWriterArticles.append("\n");
             csvWriterArticles.flush();
@@ -61,7 +67,7 @@ public class LibraryItemsManager implements ILibraryItem {
         else if (item instanceof CD)
         {
             CD cd = (CD)item;
-            ArrayList<String> cdFields = new ArrayList<String>(Arrays.asList(cd.getTitle(), String.valueOf(cd.getID())));
+            ArrayList<String> cdFields = new ArrayList<String>(Arrays.asList(cd.getTitle(), String.valueOf(cd.getID()), String.valueOf(cd.isBorrowed())));
             csvWriterCd.append(String.join(",", cdFields));
             csvWriterCd.append("\n");
             csvWriterCd.flush();

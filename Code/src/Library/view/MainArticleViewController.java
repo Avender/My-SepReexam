@@ -114,10 +114,6 @@ public class MainArticleViewController implements Initializable
     magazineColumn.setCellValueFactory (new PropertyValueFactory<Article, String> ("Magazine"));
     borrowedColumn.setCellValueFactory (new PropertyValueFactory<Item,Boolean> ("Borrowed"));
     loadList ();
-    Item item1 = new Article ("Article","Article example",10,"article author","Amazing magazine");
-    Item item2 = new Article ("Article","New York Times",11,"New York Mayor","US Magazines");
-    Item item3 = new Article ("Article","Horsens Times",12,"Horsens president","DK Enterprise");
-    dataList.addAll(item1,item2, item3);
     //Wrap the Observable List in a filtered list(initially display all data)
     FilteredList<Item> filteredList = new FilteredList<> (dataList, b -> true);
     //Set the filter predicate whenever the filter changes

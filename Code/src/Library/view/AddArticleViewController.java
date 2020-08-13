@@ -57,6 +57,7 @@ public class AddArticleViewController
   @FXML
   public void backButtonPressed(){
     viewHandler.openView("mainArticle");
+
   }
 
   @FXML

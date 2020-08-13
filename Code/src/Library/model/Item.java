@@ -24,6 +24,10 @@ public abstract class Item {
         return ID;
     }
 
+    public void setBorrowed(boolean borrowed) {
+        isBorrowed = borrowed;
+    }
+
     public boolean isBorrowed()
     {
         return isBorrowed;
