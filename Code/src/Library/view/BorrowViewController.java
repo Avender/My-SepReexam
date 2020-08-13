@@ -1,7 +1,7 @@
 package Library.view;
 
 import Library.model.Item;
-import Library.model.ILibraryBooks;
+import Library.model.ILibraryItem;
 import javafx.fxml.FXML;
 
 import javafx.scene.control.Button;
@@ -36,13 +36,13 @@ public class BorrowViewController
 
   private Region root;
   private ViewHandler viewHandler;
-  private ILibraryBooks mainModel;
+  private ILibraryItem mainModel;
   private Item item;
 
   public BorrowViewController() {
   }
 
-  public void init(ViewHandler viewHandler, ILibraryBooks model, Region root) {
+  public void init(ViewHandler viewHandler, ILibraryItem model, Region root) {
     this.viewHandler = viewHandler;
     this.mainModel = model;
     this.root = root;

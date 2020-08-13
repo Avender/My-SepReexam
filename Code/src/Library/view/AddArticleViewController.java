@@ -1,13 +1,12 @@
 package Library.view;
 
-import Library.model.Item;
-import Library.model.ILibraryBooks;
+import Library.model.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class AddArticleViewController
 {
@@ -31,17 +30,18 @@ public class AddArticleViewController
 
   private Region root;
   private ViewHandler viewHandler;
-  private ILibraryBooks mainModel;
+  private ILibraryItem libraryItem;
   private Item item;
 
   public AddArticleViewController() {
   }
 
-  public void init(ViewHandler viewHandler, ILibraryBooks model, Region root) {
+  public void init(ViewHandler viewHandler, ILibraryItem model, Region root) {
     this.viewHandler = viewHandler;
-    this.mainModel = model;
+    this.libraryItem = model;
     this.root = root;
   }
+
 
   public void reset() {
   }
@@ -50,8 +50,8 @@ public class AddArticleViewController
     return root;
   }
 
-  public void setModel(ILibraryBooks model){
-    this.mainModel = model;
+  public void setModel(ILibraryItem model){
+    this.libraryItem = model;
   }
 
   @FXML
@@ -60,7 +60,13 @@ public class AddArticleViewController
   }
 
   @FXML
-  public void addButtonPressed() throws FileNotFoundException {
-    viewHandler.closeView();
+  public void addButtonPressed() throws IOException {
+    Item item = new Article("article",title.getText(), Integer.parseInt(id.getText()), magazine.getText(), author.getText());
+    libraryItem.addItem(item);
+    title.clear();
+    id.clear();
+    magazine.clear();
+    author.clear();
+   // viewHandler.closeView();
   }
 }

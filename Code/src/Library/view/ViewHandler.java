@@ -1,13 +1,13 @@
 package Library.view;
 
-import Library.model.LibraryBooksManager;
+import Library.model.LibraryItemsManager;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 
 public class ViewHandler {
-  private LibraryBooksManager model;
+  private LibraryItemsManager model;
   private MainViewController mainViewController;
   private BorrowViewController borrowViewController;
   private AddBookViewController addBookViewController;
@@ -18,7 +18,7 @@ public class ViewHandler {
   private Scene currentScene;
   private Stage primaryStage;
 
-  public ViewHandler(LibraryBooksManager model) {
+  public ViewHandler(LibraryItemsManager model) {
     this.model = model;
     currentScene = new Scene(new Region());
   }

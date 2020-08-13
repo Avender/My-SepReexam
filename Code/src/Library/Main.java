@@ -1,6 +1,6 @@
 package Library;
 
-import Library.model.LibraryBooksManager;
+import Library.model.LibraryItemsManager;
 import Library.view.ViewHandler;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -14,7 +14,7 @@ import java.util.Scanner;
 
 public class Main extends Application
 {
-    private LibraryBooksManager model;
+    private LibraryItemsManager model;
 
     public static void main (String[] args) throws RuntimeException{
         launch(args);
@@ -27,7 +27,7 @@ public class Main extends Application
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
 
-        model = new LibraryBooksManager();
+        model = new LibraryItemsManager();
         ViewHandler view = new ViewHandler(model);
         view.start(primaryStage);
 

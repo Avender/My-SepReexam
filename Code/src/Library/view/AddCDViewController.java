@@ -1,13 +1,15 @@
 package Library.view;
 
+import Library.model.CD;
 import Library.model.Item;
-import Library.model.ILibraryBooks;
+import Library.model.ILibraryItem;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class AddCDViewController
 {
@@ -25,13 +27,13 @@ public class AddCDViewController
 
   private Region root;
   private ViewHandler viewHandler;
-  private ILibraryBooks mainModel;
+  private ILibraryItem mainModel;
   private Item item;
 
   public AddCDViewController() {
   }
 
-  public void init(ViewHandler viewHandler, ILibraryBooks model, Region root) {
+  public void init(ViewHandler viewHandler, ILibraryItem model, Region root) {
     this.viewHandler = viewHandler;
     this.mainModel = model;
     this.root = root;
@@ -44,7 +46,7 @@ public class AddCDViewController
     return root;
   }
 
-  public void setModel(ILibraryBooks model){
+  public void setModel(ILibraryItem model){
     this.mainModel = model;
   }
 
@@ -54,8 +56,11 @@ public class AddCDViewController
   }
 
   @FXML
-  public void addButtonPressed() throws FileNotFoundException
-  {
-    viewHandler.closeView();
+  public void addButtonPressed() throws IOException {
+    Item item = new CD("cd",title.getText(), Integer.parseInt(id.getText()));
+    mainModel.addItem(item);
+    title.clear();
+    id.clear();
+   // viewHandler.closeView();
   }
 }

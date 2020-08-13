@@ -2,15 +2,13 @@ package Library.view;
 
 import Library.model.Book;
 import Library.model.Item;
-import Library.model.ILibraryBooks;
+import Library.model.ILibraryItem;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.math.BigInteger;
 
 public class AddBookViewController
 {
@@ -34,13 +32,13 @@ public class AddBookViewController
 
   private Region root;
   private ViewHandler viewHandler;
-  private ILibraryBooks bookModel;
+  private ILibraryItem bookModel;
   private Item item;
 
   public AddBookViewController() {
   }
 
-  public void init(ViewHandler viewHandler, ILibraryBooks model, Region root) {
+  public void init(ViewHandler viewHandler, ILibraryItem model, Region root) {
     this.viewHandler = viewHandler;
     this.bookModel = model;
     this.root = root;
@@ -53,7 +51,7 @@ public class AddBookViewController
     return root;
   }
 
-  public void setModel(ILibraryBooks model){
+  public void setModel(ILibraryItem model){
     this.bookModel = model;
   }
 
@@ -64,7 +62,8 @@ public class AddBookViewController
 
   @FXML
   public void addButtonPressed() throws IOException {
-    bookModel.addBook(new Book("book", title.getText(), Integer.parseInt(id.getText()), isbn.getText(), author.getText()));
+    Item item = new Book("book", title.getText(), Integer.parseInt(id.getText()), isbn.getText(), author.getText());
+    bookModel.addItem(item);
     title.clear();
     author.clear();
     id.clear();

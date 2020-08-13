@@ -36,13 +36,13 @@ public class MainViewController implements Initializable {
   private final ObservableList<Item> dataList = FXCollections.observableArrayList ();
   private Region root;
   private ViewHandler viewHandler;
-  private ILibraryBooks mainModel;
+  private ILibraryItem mainModel;
   private Item item;
 
   public MainViewController() {
   }
 
-  public void init(ViewHandler viewHandler, ILibraryBooks model, Region root) {
+  public void init(ViewHandler viewHandler, ILibraryItem model, Region root) {
     this.viewHandler = viewHandler;
     this.mainModel = model;
     this.root = root;
@@ -55,7 +55,7 @@ public class MainViewController implements Initializable {
     return root;
   }
 
-  public void setModel(ILibraryBooks model){
+  public void setModel(ILibraryItem model){
     this.mainModel = model;
   }
   public void loadList(){
