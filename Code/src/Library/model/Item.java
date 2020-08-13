@@ -1,6 +1,6 @@
 package Library.model;
 
-public abstract class Item implements BySave{
+public abstract class Item {
     private String title;
     private int ID;
     private String type;
@@ -29,4 +29,13 @@ public abstract class Item implements BySave{
         return isBorrowed;
     }
 
+    @Override
+    public String toString() {
+        return "Item{" +
+                "title='" + title + '\'' +
+                ", ID=" + ID +
+                ", type='" + type + '\'' +
+                ", isBorrowed=" + isBorrowed +
+                '}';
+    }
 }

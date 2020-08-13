@@ -36,13 +36,13 @@ public class MainViewController implements Initializable {
   private final ObservableList<Item> dataList = FXCollections.observableArrayList ();
   private Region root;
   private ViewHandler viewHandler;
-  private LibraryModel mainModel;
+  private ILibraryBooks mainModel;
   private Item item;
 
   public MainViewController() {
   }
 
-  public void init(ViewHandler viewHandler, LibraryModel model, Region root) {
+  public void init(ViewHandler viewHandler, ILibraryBooks model, Region root) {
     this.viewHandler = viewHandler;
     this.mainModel = model;
     this.root = root;
@@ -55,7 +55,7 @@ public class MainViewController implements Initializable {
     return root;
   }
 
-  public void setModel(LibraryModel model){
+  public void setModel(ILibraryBooks model){
     this.mainModel = model;
   }
   public void loadList(){
@@ -94,7 +94,6 @@ public class MainViewController implements Initializable {
   @FXML
   public void returnButtonPressed(ActionEvent actionEvent) throws FileNotFoundException
   {
-    mainModel.returnItem(item);
     viewHandler.closeView();
   }
 

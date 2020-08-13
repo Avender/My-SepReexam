@@ -1,15 +1,12 @@
 package Library.view;
 
 import Library.model.Item;
-import Library.model.LibraryModel;
-import javafx.event.ActionEvent;
+import Library.model.ILibraryBooks;
 import javafx.fxml.FXML;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
-
-import java.io.FileNotFoundException;
 
 public class BorrowViewController
 {
@@ -39,13 +36,13 @@ public class BorrowViewController
 
   private Region root;
   private ViewHandler viewHandler;
-  private LibraryModel mainModel;
+  private ILibraryBooks mainModel;
   private Item item;
 
   public BorrowViewController() {
   }
 
-  public void init(ViewHandler viewHandler, LibraryModel model, Region root) {
+  public void init(ViewHandler viewHandler, ILibraryBooks model, Region root) {
     this.viewHandler = viewHandler;
     this.mainModel = model;
     this.root = root;
@@ -63,9 +60,4 @@ public class BorrowViewController
     viewHandler.openView("main");
   }
 
-  public void borrowButtonPressed(ActionEvent actionEvent) throws FileNotFoundException
-  {
-    mainModel.borrowItem(item);
-    viewHandler.closeView();
-  }
 }

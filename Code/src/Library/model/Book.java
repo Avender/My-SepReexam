@@ -18,6 +18,14 @@ public class Book extends Item {
         return ISBN;
     }
 
+    @Override
+    public String toString() {
+        return "Book{" +
+                "ISBN='" + ISBN + '\'' +
+                ", author='" + author + '\'' +
+                '}';
+    }
+
     public String getAuthor() {
         return author;
     }

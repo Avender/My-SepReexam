@@ -1,7 +1,7 @@
 package Library.view;
 
 import Library.model.Item;
-import Library.model.LibraryModel;
+import Library.model.ILibraryBooks;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -31,13 +31,13 @@ public class AddArticleViewController
 
   private Region root;
   private ViewHandler viewHandler;
-  private LibraryModel mainModel;
+  private ILibraryBooks mainModel;
   private Item item;
 
   public AddArticleViewController() {
   }
 
-  public void init(ViewHandler viewHandler, LibraryModel model, Region root) {
+  public void init(ViewHandler viewHandler, ILibraryBooks model, Region root) {
     this.viewHandler = viewHandler;
     this.mainModel = model;
     this.root = root;
@@ -50,7 +50,7 @@ public class AddArticleViewController
     return root;
   }
 
-  public void setModel(LibraryModel model){
+  public void setModel(ILibraryBooks model){
     this.mainModel = model;
   }
 
@@ -61,7 +61,6 @@ public class AddArticleViewController
 
   @FXML
   public void addButtonPressed() throws FileNotFoundException {
-    mainModel.addItem(item);
     viewHandler.closeView();
   }
 }

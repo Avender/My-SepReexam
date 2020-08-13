@@ -1,9 +1,8 @@
 package Library.view;
 
-import Library.model.Article;
 import Library.model.CD;
 import Library.model.Item;
-import Library.model.LibraryModel;
+import Library.model.ILibraryBooks;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -43,13 +42,13 @@ public class MainCDViewController implements Initializable
 
   private Region root;
   private ViewHandler viewHandler;
-  private LibraryModel mainModel;
+  private ILibraryBooks mainModel;
   private Item item;
 
   public MainCDViewController() {
   }
 
-  public void init(ViewHandler viewHandler, LibraryModel model, Region root) {
+  public void init(ViewHandler viewHandler, ILibraryBooks model, Region root) {
     this.viewHandler = viewHandler;
     this.mainModel = model;
     this.root = root;
@@ -62,7 +61,7 @@ public class MainCDViewController implements Initializable
     return root;
   }
 
-  public void setModel(LibraryModel model){
+  public void setModel(ILibraryBooks model){
     this.mainModel = model;
   }
 
@@ -94,7 +93,7 @@ public class MainCDViewController implements Initializable
   @FXML
   public void returnButtonPressed(ActionEvent actionEvent) throws FileNotFoundException
   {
-    mainModel.returnItem(item);
+
     viewHandler.closeView();
   }
 

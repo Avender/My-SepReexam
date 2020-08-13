@@ -1,13 +1,16 @@
 package Library.view;
 
+import Library.model.Book;
 import Library.model.Item;
-import Library.model.LibraryModel;
+import Library.model.ILibraryBooks;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.math.BigInteger;
 
 public class AddBookViewController
 {
@@ -31,15 +34,15 @@ public class AddBookViewController
 
   private Region root;
   private ViewHandler viewHandler;
-  private LibraryModel mainModel;
+  private ILibraryBooks bookModel;
   private Item item;
 
   public AddBookViewController() {
   }
 
-  public void init(ViewHandler viewHandler, LibraryModel model, Region root) {
+  public void init(ViewHandler viewHandler, ILibraryBooks model, Region root) {
     this.viewHandler = viewHandler;
-    this.mainModel = model;
+    this.bookModel = model;
     this.root = root;
   }
 
@@ -50,8 +53,8 @@ public class AddBookViewController
     return root;
   }
 
-  public void setModel(LibraryModel model){
-    this.mainModel = model;
+  public void setModel(ILibraryBooks model){
+    this.bookModel = model;
   }
 
   @FXML
@@ -60,8 +63,11 @@ public class AddBookViewController
   }
 
   @FXML
-  public void addButtonPressed() throws FileNotFoundException {
-    mainModel.addItem(item);
-    viewHandler.closeView();
+  public void addButtonPressed() throws IOException {
+    bookModel.addBook(new Book("book", title.getText(), Integer.parseInt(id.getText()), isbn.getText(), author.getText()));
+    title.clear();
+    author.clear();
+    id.clear();
+    isbn.clear();
   }
 }
