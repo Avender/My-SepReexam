@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
 
+import javax.swing.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -57,10 +58,16 @@ public class AddCDViewController
 
   @FXML
   public void addButtonPressed() throws IOException {
-    Item item = new CD("cd",title.getText(), Integer.parseInt(id.getText()));
-    mainModel.addItem(item);
-    title.clear();
-    id.clear();
+    if(title.getText().trim().isEmpty() || id.getText().trim().isEmpty() || id.getText().trim().matches(".*\\D.*"))
+    {
+      JOptionPane.showMessageDialog(null, "You inputted something incorrect. Try once again", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    else {
+      Item item = new CD("cd", title.getText(), Integer.parseInt(id.getText()));
+      mainModel.addItem(item);
+      title.clear();
+      id.clear();
+    }
    // viewHandler.closeView();
   }
 }

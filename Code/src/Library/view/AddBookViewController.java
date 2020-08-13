@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
 
+import javax.swing.*;
 import java.io.IOException;
 
 public class AddBookViewController
@@ -62,11 +63,18 @@ public class AddBookViewController
 
   @FXML
   public void addButtonPressed() throws IOException {
-    Item item = new Book("book", title.getText(), Integer.parseInt(id.getText()), isbn.getText(), author.getText());
-    bookModel.addItem(item);
-    title.clear();
-    author.clear();
-    id.clear();
-    isbn.clear();
+    if(title.getText().trim().isEmpty() || id.getText().trim().isEmpty() || id.getText().trim().matches(".*\\D.*") || isbn.getText().trim().isEmpty()  || author.getText().isEmpty())
+    {
+      JOptionPane.showMessageDialog(null, "You inputted something incorrect. Try once again", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    else {
+      Item item = new Book("book", title.getText(), Integer.parseInt(id.getText()), isbn.getText(), author.getText());
+      bookModel.addItem(item);
+      title.clear();
+      author.clear();
+      id.clear();
+      isbn.clear();
+    }
+
   }
 }

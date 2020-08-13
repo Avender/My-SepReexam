@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
 
+import javax.swing.*;
 import java.io.IOException;
 
 public class AddArticleViewController
@@ -62,12 +63,18 @@ public class AddArticleViewController
 
   @FXML
   public void addButtonPressed() throws IOException {
-    Item item = new Article("article",title.getText(), Integer.parseInt(id.getText()), magazine.getText(), author.getText());
-    libraryItem.addItem(item);
-    title.clear();
-    id.clear();
-    magazine.clear();
-    author.clear();
-   // viewHandler.closeView();
+    if(title.getText().trim().isEmpty() || id.getText().trim().isEmpty() || id.getText().trim().matches(".*\\D.*") || author.getText().isEmpty() || magazine.getText().trim().isEmpty())
+    {
+      JOptionPane.showMessageDialog(null, "You inputted something incorrect. Try once again", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    else {
+      Item item = new Article("article", title.getText(), Integer.parseInt(id.getText()), magazine.getText(), author.getText());
+      libraryItem.addItem(item);
+      title.clear();
+      id.clear();
+      magazine.clear();
+      author.clear();
+      // viewHandler.closeView();
+    }
   }
 }
