@@ -1,7 +1,6 @@
 package Library.view;
 
 import Library.model.Article;
-import Library.model.Book;
 import Library.model.Item;
 import Library.model.LibraryModel;
 import javafx.collections.FXCollections;
@@ -37,8 +36,8 @@ public class MainArticleViewController implements Initializable
   @FXML private TextField availableField;
   @FXML private TextField borrowedField;
   @FXML private TableColumn<Item, String> titleColumn;
-  @FXML private TableColumn<Item, String> authorColumn;
-  @FXML private TableColumn<Item, String> magazineColumn;
+  @FXML private TableColumn<Article, String> authorColumn;
+  @FXML private TableColumn<Article, String> magazineColumn;
   @FXML private TableColumn<Item, Integer> IDColumn;
   @FXML private TableColumn<Item, Boolean> borrowedColumn;
   private final ObservableList<Item> dataList = FXCollections.observableArrayList ();
@@ -111,9 +110,9 @@ public class MainArticleViewController implements Initializable
   @Override
   public void initialize (URL url, ResourceBundle resourceBundle) {
     titleColumn.setCellValueFactory (new PropertyValueFactory<Item,String> ("Title"));
-    authorColumn.setCellValueFactory (new PropertyValueFactory<Item,String> ("Author"));
+    authorColumn.setCellValueFactory (new PropertyValueFactory<Article,String> ("Author"));
     IDColumn.setCellValueFactory (new PropertyValueFactory<Item,Integer> ("ID"));
-    magazineColumn.setCellValueFactory (new PropertyValueFactory<Item, String> ("Magazine"));
+    magazineColumn.setCellValueFactory (new PropertyValueFactory<Article, String> ("Magazine"));
     borrowedColumn.setCellValueFactory (new PropertyValueFactory<Item,Boolean> ("Borrowed"));
     loadList ();
     Item item1 = new Article ("Article","Article example",10,"article author","Amazing magazine");

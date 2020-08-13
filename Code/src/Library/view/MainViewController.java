@@ -15,7 +15,6 @@ import javafx.scene.layout.Region;
 import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.Scanner;
 
 public class MainViewController implements Initializable {
   @FXML private Button booksButton;
@@ -30,8 +29,8 @@ public class MainViewController implements Initializable {
   @FXML private TextField availableField;
   @FXML private TextField borrowedField;
   @FXML private TableColumn<Item, String> titleColumn;
-  @FXML private TableColumn<Item, String> authorColumn;
-  @FXML private TableColumn<Item, String> ISBNColumn;
+  @FXML private TableColumn<Book, String> authorColumn;
+  @FXML private TableColumn<Book, String> ISBNColumn;
   @FXML private TableColumn<Item, Integer> IDColumn;
   @FXML private TableColumn<Item, Boolean> borrowedColumn;
   private final ObservableList<Item> dataList = FXCollections.observableArrayList ();
@@ -103,9 +102,9 @@ public class MainViewController implements Initializable {
   @Override
   public void initialize (URL url, ResourceBundle resourceBundle) {
     titleColumn.setCellValueFactory (new PropertyValueFactory<Item,String> ("Title"));
-    authorColumn.setCellValueFactory (new PropertyValueFactory<Item,String> ("Author"));
+    authorColumn.setCellValueFactory (new PropertyValueFactory<Book,String> ("Author"));
     IDColumn.setCellValueFactory (new PropertyValueFactory<Item,Integer> ("ID"));
-    ISBNColumn.setCellValueFactory (new PropertyValueFactory<Item, String> ("ISBN"));
+    ISBNColumn.setCellValueFactory (new PropertyValueFactory<Book, String> ("ISBN"));
     borrowedColumn.setCellValueFactory (new PropertyValueFactory<Item,Boolean> ("Borrowed"));
     loadList ();
     Item book1 = new Book ("Book","El Hambre Invisible",1,"9788408195054","Santi Balmes");

@@ -13,4 +13,12 @@ public class Article extends Item {
     public String getType () {
         return "Article";
     }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public String getMagazine() {
+        return magazine;
+    }
 }

@@ -13,4 +13,12 @@ public class Book extends Item {
     public String getType() {
         return "Book";
     }
+
+    public String getISBN() {
+        return ISBN;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
 }
